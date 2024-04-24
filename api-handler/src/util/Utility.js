@@ -23,5 +23,5 @@ function calculateDates(
   return { startDateString, endDateString };
 }
 
-console.log(calculateDates(20, 30, 22, 0));
+//console.log(calculateDates(20, 30, 22, 0));
 module.exports = { calculateDates };
