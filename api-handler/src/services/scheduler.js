@@ -10,10 +10,10 @@ rule.second = [new schedule.Range(57, 59)];
 
 const job1 = schedule.scheduleJob(rule, function () {
   if (new Date().getDay() == 2) {
-    const { startDateString, endDateString } = calculateDates(21);
+    const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
     bookingHandler.postBooking(startDateString, endDateString);
   } else if (new Date().getDay() == 4) {
-    const { startDateString, endDateString } = calculateDates(21, 30);
+    const { startDateString, endDateString } = calculateDates(21, 30, 22, 30);
     bookingHandler.postBooking(startDateString, endDateString);
   }
 });
@@ -26,10 +26,10 @@ rule2.second = [new schedule.Range(0, 5)];
 
 const job2 = schedule.scheduleJob(rule2, function () {
   if (new Date().getDay() == 2) {
-    const { startDateString, endDateString } = calculateDates(21);
+    const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
     bookingHandler.postBooking(startDateString, endDateString);
   } else if (new Date().getDay() == 4) {
-    const { startDateString, endDateString } = calculateDates(21, 30);
+    const { startDateString, endDateString } = calculateDates(21, 30, 22, 30);
     bookingHandler.postBooking(startDateString, endDateString);
   }
 });

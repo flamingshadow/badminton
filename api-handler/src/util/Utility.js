@@ -1,5 +1,11 @@
-function calculateDates(startHour = 0, startMinutes = 0) {
+function calculateDates(
+  startHour = 0,
+  startMinutes = 0,
+  endHour = 0,
+  endMinutes = 0
+) {
   const startDate = new Date();
+  startDate.setDate(new Date().getDate() + 7);
   startDate.setHours(startHour);
   startDate.setMinutes(startMinutes);
   startDate.setSeconds(0);
@@ -7,8 +13,9 @@ function calculateDates(startHour = 0, startMinutes = 0) {
   const startDateString = startDate.toISOString();
 
   const endDate = new Date();
-  endDate.setHours(startHour + 1);
-  endDate.setMinutes(startMinutes);
+  endDate.setDate(new Date().getDate() + 7);
+  endDate.setHours(endHour);
+  endDate.setMinutes(endMinutes);
   endDate.setSeconds(0);
   endDate.setMilliseconds(0);
   const endDateString = endDate.toISOString();
@@ -16,4 +23,5 @@ function calculateDates(startHour = 0, startMinutes = 0) {
   return { startDateString, endDateString };
 }
 
+console.log(calculateDates(20, 30, 22, 0));
 module.exports = { calculateDates };
