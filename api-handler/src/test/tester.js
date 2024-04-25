@@ -1,5 +1,7 @@
+require("log-timestamp");
 const express = require("express");
 const bookingHandler = require("../services/bookingHandler");
+const { calculateDates, delay } = require("../util/Utility");
 
 const app = express();
 const port = 3001;
@@ -11,9 +13,18 @@ app.get("/slots", async (req, res) => {
 });
 
 app.get("/book", async (req, res) => {
-  const data = await bookingHandler.bookSlot();
-  console.log("booking outcome:", data);
-  res.json(data);
+  for (let step = 0; step < 22; step++) {
+    await Promise.all([delay(50)]);
+    const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
+    bookingHandler.bookSlot(startDateString, endDateString);
+  }
+  res.json("done");
+});
+
+app.get("/token", async (req, res) => {
+  const token = await bookingHandler.getToken();
+  console.log("token:", token);
+  res.json(token);
 });
 
 app.get("/date", (req, res) => {

@@ -1,3 +1,5 @@
+require("log-timestamp");
+
 function calculateDates(
   startHour = 0,
   startMinutes = 0,
@@ -23,5 +25,9 @@ function calculateDates(
   return { startDateString, endDateString };
 }
 
+function delay(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 //console.log(calculateDates(20, 30, 22, 0));
-module.exports = { calculateDates };
+module.exports = { calculateDates, delay };

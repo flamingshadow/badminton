@@ -1,20 +1,37 @@
+require("log-timestamp");
 const schedule = require("node-schedule");
 const bookingHandler = require("./bookingHandler");
-const { calculateDates } = require("../util/Utility");
+const { calculateDates, delay } = require("../util/Utility");
+
+const authRule = new schedule.RecurrenceRule();
+authRule.dayOfWeek = [new schedule.Range(0, 6)];
+authRule.hour = 6;
+authRule.minute = 0;
+authRule.second = 0;
+
+schedule.scheduleJob(authRule, async function () {
+  bookingHandler.getToken();
+});
 
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [2, 4];
 rule.hour = 6;
 rule.minute = 59;
-rule.second = [new schedule.Range(57, 59)];
+rule.second = 59;
 
-const job1 = schedule.scheduleJob(rule, function () {
+schedule.scheduleJob(rule, async function () {
   if (new Date().getDay() == 2) {
-    const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
-    bookingHandler.postBooking(startDateString, endDateString);
+    for (let step = 0; step < 25; step++) {
+      await Promise.all([delay(50)]);
+      const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
+      bookingHandler.bookSlot(startDateString, endDateString);
+    }
   } else if (new Date().getDay() == 4) {
-    const { startDateString, endDateString } = calculateDates(21, 30, 22, 30);
-    bookingHandler.postBooking(startDateString, endDateString);
+    for (let step = 0; step < 25; step++) {
+      await Promise.all([delay(50)]);
+      const { startDateString, endDateString } = calculateDates(21, 30, 22, 30);
+      bookingHandler.bookSlot(startDateString, endDateString);
+    }
   }
 });
 
@@ -22,15 +39,19 @@ const rule2 = new schedule.RecurrenceRule();
 rule2.dayOfWeek = [2, 4];
 rule2.hour = 7;
 rule2.minute = 0;
-rule2.second = [new schedule.Range(0, 5)];
+rule2.second = 0;
 
-const job2 = schedule.scheduleJob(rule2, function () {
+schedule.scheduleJob(rule2, async function () {
   if (new Date().getDay() == 2) {
-    const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
-    bookingHandler.postBooking(startDateString, endDateString);
+    for (let step = 0; step < 25; step++) {
+      const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
+      bookingHandler.bookSlot(startDateString, endDateString);
+    }
   } else if (new Date().getDay() == 4) {
-    const { startDateString, endDateString } = calculateDates(21, 30, 22, 30);
-    bookingHandler.postBooking(startDateString, endDateString);
+    for (let step = 0; step < 25; step++) {
+      const { startDateString, endDateString } = calculateDates(21, 30, 22, 30);
+      bookingHandler.bookSlot(startDateString, endDateString);
+    }
   }
 });
 

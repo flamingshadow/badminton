@@ -1,34 +1,30 @@
+require("log-timestamp");
 const axios = require("axios");
+let accessToken = "";
 
-const axiosHeaders = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWM3NTEyZTU1YjZiNTMxMTBjYTg0MTgiLCJpYXQiOjE3MTM5NTQ2MzAsImV4cCI6MTcxNDA0MTAzMH0.0DmwkWSli0oAN5LSM9jltoicoEM5ksXuY4rl1dTNr_s",
-  },
-};
-
-async function getBooking() {
-  const url =
-    "https://api.helloclub.com/booking?fromDate=2024-04-14T12:00:00.000Z&limit=5&offset=0&toDate=2024-04-15T11:59:59.999Z";
-  let data = "";
+async function getToken() {
+  const url = "https://api.helloclub.com/auth/token";
+  const data = {
+    username: "its.goyalrajat@gmail.com",
+    password: "texjaS-nitxo2-cepman",
+    clientId: "helloclub-client",
+    grantType: "password",
+  };
   await axios
-    .get(url, axiosHeaders)
+    .post(url, data)
     .then((response) => {
-      console.log(response.data);
-      data = response.data;
+      console.log("token:", response.data);
+      accessToken = "Bearer " + response.data.access_token;
     })
     .catch((error) => {
-      console.error(error);
-      data = error;
+      console.error("error:", error.response.data);
     });
-  return data;
 }
 
-async function postBooking(startDate, endDate) {
+async function bookSlot(startDate, endDate) {
   const url = "https://api.helloclub.com/booking";
   let data = "";
-  console.log("posting booking", startDate, endDate);
+  console.log("Creating booking for:", startDate, endDate, accessToken);
   await axios
     .post(
       url,
@@ -45,8 +41,35 @@ async function postBooking(startDate, endDate) {
         forOthers: false,
         reminderTime: 30,
       },
-      axiosHeaders
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+        },
+      }
     )
+    .then((response) => {
+      console.log("booking outcome:", response.data);
+      data = response.data;
+    })
+    .catch((error) => {
+      console.error("error:", error.response.data.message);
+      data = error.data;
+    });
+  return data;
+}
+
+async function getBooking() {
+  const url =
+    "https://api.helloclub.com/booking?fromDate=2024-04-14T12:00:00.000Z&limit=5&offset=0&toDate=2024-04-15T11:59:59.999Z";
+  let data = "";
+  await axios
+    .get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+    })
     .then((response) => {
       console.log(response.data);
       data = response.data;
@@ -58,7 +81,7 @@ async function postBooking(startDate, endDate) {
   return data;
 }
 
-module.exports = { getBooking, postBooking };
+module.exports = { getBooking, bookSlot, getToken };
 
 //Raush: 5e4e11c39c477d000442a3de
 //Raj: 65c7512e55b6b53110ca8418
@@ -66,3 +89,17 @@ module.exports = { getBooking, postBooking };
 //Mode - Stadium Pass Singles: 615fcc5a03fdff65ad87ada7
 //Mode - Stadium Pass Doubles: 615fcc9db35243a097257517
 //Activity - North City Badminton: 5aadd66e87c6b800048a2908
+
+/*
+{"members":["65c7512e55b6b53110ca8418","5e4e11c39c477d000442a3de"],
+"area":"5aadd66e87c6b800048a290f",
+"activity":"5aadd66e87c6b800048a2908",
+"startDate":"2024-05-02T11:30:00.000Z",
+"endDate":"2024-05-02T12:00:00.000Z",
+"mode":"615fcc5a03fdff65ad87ada7",
+"recurrence":null,
+"visitors":[],
+"sendConfirmationEmail":true,
+"forOthers":false,
+"reminderTime":30}
+*/
