@@ -8,6 +8,19 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      day:
+        description: 'Day of week 0 - 6'     
+        required: true
+        default: '0'
+      hour:
+        description: 'Hour 0 - 23'     
+        required: true
+        default: '0'
+      minute:
+        description: 'Minute 0 - 59'     
+        required: true
+        default: '0'
 
 jobs:
   build:
@@ -27,7 +40,7 @@ jobs:
           password: ${{secrets.PASSWORD}}
         run: |
           npm install
-          npm run test $username $password
+          npm run test $username $password ${{github.event.inputs.day}} ${{github.event.inputs.minute}} ${{github.event.inputs.hour}}
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
