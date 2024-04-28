@@ -5,8 +5,8 @@ let accessToken = "";
 async function getToken() {
   const url = "https://api.helloclub.com/auth/token";
   const data = {
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
+    username: process.argv[2],
+    password: process.argv[3],
     clientId: "helloclub-client",
     grantType: "password",
   };

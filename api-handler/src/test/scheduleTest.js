@@ -6,7 +6,7 @@ const { calculateDates, delay } = require("../util/Utility");
 const authRule = new schedule.RecurrenceRule();
 authRule.dayOfWeek = 0;
 authRule.hour = 21;
-authRule.minute = 0;
+authRule.minute = 51;
 authRule.second = 40;
 
 schedule.scheduleJob(authRule, async function () {
@@ -16,8 +16,8 @@ schedule.scheduleJob(authRule, async function () {
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = 0;
 rule.hour = 21;
-rule.minute = 0;
-rule.second = 50;
+rule.minute = 50;
+rule.second = 10;
 
 schedule.scheduleJob(rule, async function () {
   await Promise.all([delay(500)]);
