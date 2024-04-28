@@ -1,9 +1,32 @@
 {
+  "name": "badminton",
+  "version": "1.0.0",
+  "description": "badminton hello club booking",
+  "type": "commonjs",
+  "main": "api-handler/src/services/scheduler.js",
   "dependencies": {
     "axios": "^1.6.8",
     "express": "^4.19.2",
     "isomorphic-fetch": "^3.0.0",
     "log-timestamp": "^0.3.0",
     "node-schedule": "^2.1.1"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "fmt": "prettier --write .",
+    "start": "node --env-file=.env ./api-handler/src/services/scheduler.js",
+    "test": "node --env-file=.env ./api-handler/src/test/scheduleTest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "flamingshadow",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.1.1",
+    "eslint": "^9.1.1",
+    "globals": "^15.0.0",
+    "prettier": "^3.2.5"
   }
 }
