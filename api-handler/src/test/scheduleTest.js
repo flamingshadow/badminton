@@ -5,9 +5,9 @@ const { calculateDates, delay } = require("../util/Utility");
 
 const authRule = new schedule.RecurrenceRule();
 authRule.dayOfWeek = 0;
-authRule.hour = 21;
-authRule.minute = 51;
-authRule.second = 40;
+authRule.hour = 22;
+authRule.minute = 11;
+authRule.second = 30;
 
 schedule.scheduleJob(authRule, async function () {
   bookingHandler.getToken();
