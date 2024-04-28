@@ -40,7 +40,7 @@ jobs:
           password: ${{secrets.PASSWORD}}
         run: |
           npm install
-          npm run test $username $password ${{github.event.inputs.day}} ${{github.event.inputs.minute}} ${{github.event.inputs.hour}}
+          npm run test $username $password ${{github.event.inputs.day}} ${{github.event.inputs.hour}} ${{github.event.inputs.minute}}
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
