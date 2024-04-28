@@ -87,4 +87,4 @@ jobs:
           password: ${{secrets.PASSWORD}}
         run: |
           npm install
-          npm run start $username $password
+          npm run start $username $password &
