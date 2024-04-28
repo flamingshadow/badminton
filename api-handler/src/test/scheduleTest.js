@@ -4,19 +4,19 @@ const bookingHandler = require("../services/bookingHandler");
 const { calculateDates, delay } = require("../util/Utility");
 
 const authRule = new schedule.RecurrenceRule();
-authRule.dayOfWeek = 0;
-authRule.hour = 22;
-authRule.minute = 11;
-authRule.second = 30;
+authRule.dayOfWeek = process.argv[4];
+authRule.hour = process.argv[5];
+authRule.minute = process.argv[6];
+authRule.second = 0;
 
 schedule.scheduleJob(authRule, async function () {
   bookingHandler.getToken();
 });
 
 const rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = 0;
-rule.hour = 21;
-rule.minute = 50;
+rule.dayOfWeek = process.argv[4];
+rule.hour = process.argv[5];
+rule.minute = process.argv[6];
 rule.second = 10;
 
 schedule.scheduleJob(rule, async function () {
