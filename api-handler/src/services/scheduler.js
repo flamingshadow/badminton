@@ -1,7 +1,16 @@
 require("log-timestamp");
 const schedule = require("node-schedule");
+const express = require("express");
 const bookingHandler = require("./bookingHandler");
 const { calculateDates, delay } = require("../util/Utility");
+
+const app = express();
+const port = 3000;
+
+app.get("/token", async (req, res) => {
+  bookingHandler.getToken();
+  res.json({ done: "done" });
+});
 
 const authRule = new schedule.RecurrenceRule();
 authRule.dayOfWeek = [2, 4];
@@ -35,6 +44,10 @@ schedule.scheduleJob(rule, async function () {
       bookingHandler.bookSlot(startDateString, endDateString);
     }
   }
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 /* const rule2 = new schedule.RecurrenceRule();
