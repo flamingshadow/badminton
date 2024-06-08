@@ -59,6 +59,49 @@ async function bookSlot(startDate, endDate) {
   return data;
 }
 
+async function bookDoublesSlot(startDate, endDate) {
+  const url = "https://api.helloclub.com/booking";
+  let data = "";
+  console.log("Creating booking for:", startDate, endDate, accessToken);
+  await axios
+    .post(
+      url,
+      {
+        members: [
+          "65c7512e55b6b53110ca8418",
+          "5e4e11c39c477d000442a3de",
+          "624515e1151d58b0c4624145",
+          "61a7d03b8418829fd20e6852",
+        ],
+        area: "5aadd66e87c6b800048a2912",
+        activity: "5aadd66e87c6b800048a2908",
+        startDate: startDate,
+        endDate: endDate,
+        mode: "615fcc9db35243a097257517",
+        recurrence: null,
+        visitors: [],
+        sendConfirmationEmail: false,
+        forOthers: false,
+        reminderTime: 30,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+        },
+      }
+    )
+    .then((response) => {
+      console.log("booking outcome:", response.data);
+      data = response.data;
+    })
+    .catch((error) => {
+      console.error("error:", error.response.data.message);
+      data = error.data;
+    });
+  return data;
+}
+
 async function getBooking() {
   const url =
     "https://api.helloclub.com/booking?fromDate=2024-04-14T12:00:00.000Z&limit=5&offset=0&toDate=2024-04-15T11:59:59.999Z";
@@ -81,11 +124,14 @@ async function getBooking() {
   return data;
 }
 
-module.exports = { getBooking, bookSlot, getToken };
+module.exports = { getBooking, bookSlot, bookDoublesSlot, getToken };
 
 //Raush: 5e4e11c39c477d000442a3de
 //Raj: 65c7512e55b6b53110ca8418
+//Sameer: 624515e1151d58b0c4624145
+//Sahil: 61a7d03b8418829fd20e6852
 //Area - Court 1: 5aadd66e87c6b800048a290d
+//Area - Court 5: 5aadd66e87c6b800048a2911
 //Mode - Stadium Pass Singles: 615fcc5a03fdff65ad87ada7
 //Mode - Stadium Pass Doubles: 615fcc9db35243a097257517
 //Activity - North City Badminton: 5aadd66e87c6b800048a2908

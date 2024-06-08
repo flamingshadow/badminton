@@ -13,7 +13,7 @@ app.get("/token", async (req, res) => {
 });
 
 const authRule = new schedule.RecurrenceRule();
-authRule.dayOfWeek = [2, 4];
+authRule.dayOfWeek = [2, 4, 6];
 authRule.hour = 6;
 authRule.minute = 50;
 authRule.second = 0;
@@ -23,7 +23,7 @@ schedule.scheduleJob(authRule, async function () {
 });
 
 const rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [2, 4];
+rule.dayOfWeek = [2, 4, 6];
 rule.hour = 6;
 rule.minute = 59;
 rule.second = 59;
@@ -33,15 +33,38 @@ schedule.scheduleJob(rule, async function () {
     await Promise.all([delay(500)]);
     for (let step = 0; step < 30; step++) {
       await Promise.all([delay(20)]);
-      const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
+      const { startDateString, endDateString } = calculateDates(20, 30, 21, 0);
       bookingHandler.bookSlot(startDateString, endDateString);
+      const { start2DateString, end2DateString } = calculateDates(
+        21,
+        0,
+        21,
+        30
+      );
+      bookingHandler.bookSlot(start2DateString, end2DateString);
     }
   } else if (new Date().getDay() == 4) {
-    await Promise.all([delay(500)]);
+    await Promise.all([delay(900)]);
     for (let step = 0; step < 30; step++) {
-      await Promise.all([delay(20)]);
-      const { startDateString, endDateString } = calculateDates(21, 30, 22, 30);
+      await Promise.all([delay(40)]);
+      const { startDateString, endDateString } = calculateDates(21, 30, 22, 0);
       bookingHandler.bookSlot(startDateString, endDateString);
+      const { start2DateString, end2DateString } = calculateDates(
+        22,
+        0,
+        22,
+        30
+      );
+      bookingHandler.bookSlot(start2DateString, end2DateString);
+    }
+  } else if (new Date().getDay() == 6) {
+    await Promise.all([delay(900)]);
+    for (let step = 0; step < 5; step++) {
+      await Promise.all([delay(40)]);
+      const { startDateString, endDateString } = calculateDates(7, 0, 8, 0);
+      bookingHandler.bookDoublesSlot(startDateString, endDateString);
+      const { start2DateString, end2DateString } = calculateDates(8, 0, 9, 0);
+      bookingHandler.bookDoublesSlot(start2DateString, end2DateString);
     }
   }
 });
@@ -49,26 +72,6 @@ schedule.scheduleJob(rule, async function () {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-/* const rule2 = new schedule.RecurrenceRule();
-rule2.dayOfWeek = [2, 4];
-rule2.hour = 7;
-rule2.minute = 0;
-rule2.second = 0;
-
-schedule.scheduleJob(rule2, async function () {
-  if (new Date().getDay() == 2) {
-    for (let step = 0; step < 25; step++) {
-      const { startDateString, endDateString } = calculateDates(20, 30, 22, 0);
-      bookingHandler.bookSlot(startDateString, endDateString);
-    }
-  } else if (new Date().getDay() == 4) {
-    for (let step = 0; step < 25; step++) {
-      const { startDateString, endDateString } = calculateDates(21, 30, 22, 30);
-      bookingHandler.bookSlot(startDateString, endDateString);
-    }
-  }
-}); */
 
 //startDate: "2024-04-30T11:30:00.000Z",
 //sndDate: "2024-04-30T12:00:00.000Z",
