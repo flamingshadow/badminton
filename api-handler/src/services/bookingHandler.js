@@ -73,7 +73,7 @@ async function bookDoublesSlot(startDate, endDate) {
           "624515e1151d58b0c4624145",
           "61a7d03b8418829fd20e6852",
         ],
-        area: "5aadd66e87c6b800048a2912",
+        area: "5aadd66e87c6b800048a2911",
         activity: "5aadd66e87c6b800048a2908",
         startDate: startDate,
         endDate: endDate,

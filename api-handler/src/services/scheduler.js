@@ -30,9 +30,9 @@ rule.second = 59;
 
 schedule.scheduleJob(rule, async function () {
   if (new Date().getDay() == 2) {
-    await Promise.all([delay(500)]);
-    for (let step = 0; step < 30; step++) {
-      await Promise.all([delay(20)]);
+    await Promise.all([delay(900)]);
+    for (let step = 0; step < 5; step++) {
+      await Promise.all([delay(40)]);
       const { startDateString, endDateString } = calculateDates(20, 30, 21, 0);
       bookingHandler.bookSlot(startDateString, endDateString);
       const { start2DateString, end2DateString } = calculateDates(
@@ -45,7 +45,7 @@ schedule.scheduleJob(rule, async function () {
     }
   } else if (new Date().getDay() == 4) {
     await Promise.all([delay(900)]);
-    for (let step = 0; step < 30; step++) {
+    for (let step = 0; step < 5; step++) {
       await Promise.all([delay(40)]);
       const { startDateString, endDateString } = calculateDates(21, 30, 22, 0);
       bookingHandler.bookSlot(startDateString, endDateString);
