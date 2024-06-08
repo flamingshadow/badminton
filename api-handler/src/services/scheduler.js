@@ -33,13 +33,13 @@ schedule.scheduleJob(rule, async function () {
     await Promise.all([delay(900)]);
     for (let step = 0; step < 5; step++) {
       await Promise.all([delay(40)]);
-      const { startDateString, endDateString } = calculateDates(20, 30, 21, 0);
+      const { startDateString, endDateString } = calculateDates(21, 0, 21, 30);
       bookingHandler.bookSlot(startDateString, endDateString);
       const { start2DateString, end2DateString } = calculateDates(
         21,
-        0,
-        21,
-        30
+        30,
+        22,
+        0
       );
       bookingHandler.bookSlot(start2DateString, end2DateString);
     }
