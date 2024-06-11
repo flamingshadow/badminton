@@ -22,12 +22,13 @@ function calculateDates(
   endDate.setMilliseconds(0);
   const endDateString = endDate.toISOString();
 
-  return { startDateString, endDateString };
+  return [startDateString, endDateString];
 }
 
 function delay(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-//console.log(calculateDates(20, 30, 22, 0));
+//const [a, b] = calculateDates(21, 30, 22);
+//console.log(a, b);
 module.exports = { calculateDates, delay };

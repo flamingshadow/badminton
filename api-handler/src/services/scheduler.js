@@ -30,41 +30,31 @@ rule.second = 59;
 
 schedule.scheduleJob(rule, async function () {
   if (new Date().getDay() == 2) {
-    await Promise.all([delay(900)]);
+    await Promise.all([delay(850)]);
     for (let step = 0; step < 5; step++) {
-      await Promise.all([delay(40)]);
-      const { startDateString, endDateString } = calculateDates(21, 0, 21, 30);
+      await Promise.all([delay(30)]);
+      const [startDateString, endDateString] = calculateDates(21, 0, 21, 30);
       bookingHandler.bookSlot(startDateString, endDateString);
-      const { start2DateString, end2DateString } = calculateDates(
-        21,
-        30,
-        22,
-        0
-      );
-      bookingHandler.bookSlot(start2DateString, end2DateString);
+      const [startDate2String, endDate2String] = calculateDates(21, 30, 22, 0);
+      bookingHandler.bookSlot(startDate2String, endDate2String);
     }
   } else if (new Date().getDay() == 4) {
-    await Promise.all([delay(900)]);
+    await Promise.all([delay(850)]);
     for (let step = 0; step < 5; step++) {
-      await Promise.all([delay(40)]);
-      const { startDateString, endDateString } = calculateDates(21, 30, 22, 0);
+      await Promise.all([delay(30)]);
+      const [startDateString, endDateString] = calculateDates(21, 30, 22, 0);
       bookingHandler.bookSlot(startDateString, endDateString);
-      const { start2DateString, end2DateString } = calculateDates(
-        22,
-        0,
-        22,
-        30
-      );
-      bookingHandler.bookSlot(start2DateString, end2DateString);
+      const [startDate2String, endDate2String] = calculateDates(22, 0, 22, 30);
+      bookingHandler.bookSlot(startDate2String, endDate2String);
     }
   } else if (new Date().getDay() == 6) {
-    await Promise.all([delay(900)]);
+    await Promise.all([delay(850)]);
     for (let step = 0; step < 5; step++) {
-      await Promise.all([delay(40)]);
-      const { startDateString, endDateString } = calculateDates(7, 0, 8, 0);
+      await Promise.all([delay(30)]);
+      const [startDateString, endDateString] = calculateDates(7, 0, 8, 0);
       bookingHandler.bookDoublesSlot(startDateString, endDateString);
-      const { start2DateString, end2DateString } = calculateDates(8, 0, 9, 0);
-      bookingHandler.bookDoublesSlot(start2DateString, end2DateString);
+      const [startDate2String, endDate2String] = calculateDates(8, 0, 9, 0);
+      bookingHandler.bookDoublesSlot(startDate2String, endDate2String);
     }
   }
 });
