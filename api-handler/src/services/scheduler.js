@@ -29,7 +29,7 @@ rule.minute = 59;
 rule.second = 59;
 
 schedule.scheduleJob(rule, async function () {
-  if (new Date().getDay() == 2) {
+  /* if (new Date().getDay() == 2) {
     await Promise.all([delay(850)]);
     for (let step = 0; step < 5; step++) {
       await Promise.all([delay(30)]);
@@ -47,14 +47,15 @@ schedule.scheduleJob(rule, async function () {
       const [startDate2String, endDate2String] = calculateDates(22, 0, 22, 30);
       bookingHandler.bookSlot(startDate2String, endDate2String);
     }
-  } else if (new Date().getDay() == 6) {
+  } else if (new Date().getDay() == 6) { */
+  if ([6, 7].includes(new Date().getDay())) {
     await Promise.all([delay(850)]);
     for (let step = 0; step < 5; step++) {
       await Promise.all([delay(30)]);
       const [startDateString, endDateString] = calculateDates(7, 0, 8, 0);
-      bookingHandler.bookDoublesSlot(startDateString, endDateString);
+      bookingHandler.bookRandomSlot(startDateString, endDateString);
       const [startDate2String, endDate2String] = calculateDates(8, 0, 9, 0);
-      bookingHandler.bookDoublesSlot(startDate2String, endDate2String);
+      bookingHandler.bookRandomSlot(startDate2String, endDate2String);
     }
   }
 });

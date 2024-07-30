@@ -1,4 +1,5 @@
 require("log-timestamp");
+const { randomCourt, randomPartner } = require("../util/Utility");
 const axios = require("axios");
 let accessToken = "";
 
@@ -31,6 +32,46 @@ async function bookSlot(startDate, endDate) {
       {
         members: ["65c7512e55b6b53110ca8418", "5e4e11c39c477d000442a3de"],
         area: "5aadd66e87c6b800048a290d",
+        activity: "5aadd66e87c6b800048a2908",
+        startDate: startDate,
+        endDate: endDate,
+        mode: "615fcc5a03fdff65ad87ada7",
+        recurrence: null,
+        visitors: [],
+        sendConfirmationEmail: false,
+        forOthers: false,
+        reminderTime: 30,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+        },
+      }
+    )
+    .then((response) => {
+      console.log("booking outcome:", response.data);
+      data = response.data;
+    })
+    .catch((error) => {
+      console.error("error:", error.response.data.message);
+      data = error.data;
+    });
+  return data;
+}
+
+async function bookRandomSlot(startDate, endDate) {
+  const url = "https://api.helloclub.com/booking";
+  let data = "";
+  console.log("Creating booking for:", startDate, endDate, accessToken);
+  let partner = randomPartner();
+  let court = randomCourt();
+  await axios
+    .post(
+      url,
+      {
+        members: ["65c7512e55b6b53110ca8418", partner],
+        area: court,
         activity: "5aadd66e87c6b800048a2908",
         startDate: startDate,
         endDate: endDate,
@@ -124,15 +165,27 @@ async function getBooking() {
   return data;
 }
 
-module.exports = { getBooking, bookSlot, bookDoublesSlot, getToken };
+module.exports = {
+  getBooking,
+  bookSlot,
+  bookDoublesSlot,
+  getToken,
+  bookRandomSlot,
+};
 
 //Raush: 5e4e11c39c477d000442a3de
 //Raj: 65c7512e55b6b53110ca8418
 //Sameer: 624515e1151d58b0c4624145
 //Sahil: 61a7d03b8418829fd20e6852
 //Sanjay: 61a94ef112f52d842d7faba3
-//Area - Court 1: 5aadd66e87c6b800048a290d
-//Area - Court 5: 5aadd66e87c6b800048a2911
+//Gunjal: 6316fafd57ec9e4ffda9618d
+//Lovesh: 5e0f09c233c2370004dcc526
+//Area - Court 1: 5aadd66e87c6b800048a290d,
+//Area - Court 2: 5aadd66e87c6b800048a290e,
+//Area - Court 3: 5aadd66e87c6b800048a290f,
+//Area - Court 4: 5aadd66e87c6b800048a2910,
+//Area - Court 5: 5aadd66e87c6b800048a2911,
+//Area - Court 6: 5aadd66e87c6b800048a2912,
 //Mode - Stadium Pass Singles: 615fcc5a03fdff65ad87ada7
 //Mode - Stadium Pass Doubles: 615fcc9db35243a097257517
 //Activity - North City Badminton: 5aadd66e87c6b800048a2908
