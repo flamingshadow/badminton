@@ -2,6 +2,8 @@ require("log-timestamp");
 const { randomCourt, randomPartner } = require("../util/Utility");
 const axios = require("axios");
 let accessToken = "";
+let partner = "";
+let court = "";
 
 async function getToken() {
   const url = "https://api.helloclub.com/auth/token";
@@ -60,12 +62,17 @@ async function bookSlot(startDate, endDate) {
   return data;
 }
 
+function setPartnerCourt() {
+  partner = randomPartner();
+  court = randomCourt();
+}
+
 async function bookRandomSlot(startDate, endDate) {
   const url = "https://api.helloclub.com/booking";
   let data = "";
   console.log("Creating booking for:", startDate, endDate, accessToken);
-  let partner = randomPartner();
-  let court = randomCourt();
+  //let partner = randomPartner();
+  //let court = randomCourt();
   await axios
     .post(
       url,
@@ -171,6 +178,7 @@ module.exports = {
   bookDoublesSlot,
   getToken,
   bookRandomSlot,
+  setPartnerCourt,
 };
 
 //Raush: 5e4e11c39c477d000442a3de

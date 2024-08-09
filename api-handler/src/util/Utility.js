@@ -31,14 +31,20 @@ function delay(time) {
 
 function randomPartner() {
   let partnerList = [
-    "624515e1151d58b0c4624145",
-    "61a7d03b8418829fd20e6852",
     "61a94ef112f52d842d7faba3",
     "6316fafd57ec9e4ffda9618d",
     "5e0f09c233c2370004dcc526",
   ];
   return partnerList[Math.floor(Math.random() * partnerList.length)];
 }
+
+//Raush: 5e4e11c39c477d000442a3de
+//Raj: 65c7512e55b6b53110ca8418
+//Sameer: 624515e1151d58b0c4624145
+//Sahil: 61a7d03b8418829fd20e6852
+//Sanjay: 61a94ef112f52d842d7faba3
+//Gunjal: 6316fafd57ec9e4ffda9618d
+//Lovesh: 5e0f09c233c2370004dcc526
 
 function randomCourt() {
   let courtList = [
