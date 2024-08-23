@@ -49,13 +49,13 @@ schedule.scheduleJob(rule, async function () {
     }
   } else if (new Date().getDay() == 6) { */
   if ([6, 7].includes(new Date().getDay())) {
+    bookingHandler.setPartnerCourt();
+    const [startDateString, endDateString] = calculateDates(7, 0, 8, 0);
+    const [startDate2String, endDate2String] = calculateDates(8, 0, 9, 0);
     await Promise.all([delay(850)]);
     for (let step = 0; step < 5; step++) {
       await Promise.all([delay(30)]);
-      bookingHandler.setPartnerCourt();
-      const [startDateString, endDateString] = calculateDates(7, 0, 8, 0);
       bookingHandler.bookRandomSlot(startDateString, endDateString);
-      const [startDate2String, endDate2String] = calculateDates(8, 0, 9, 0);
       bookingHandler.bookRandomSlot(startDate2String, endDate2String);
     }
   }
